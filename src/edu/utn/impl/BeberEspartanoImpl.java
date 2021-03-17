@@ -6,7 +6,7 @@ public class BeberEspartanoImpl implements IBeber {
 
 
     @Override
-    public void beber() {
-        System.out.println("Soy un Espartano y estoy bebiendo");
+    public String beber() {
+        return "Soy un Espartano y estoy bebiendo";
     }
 }
