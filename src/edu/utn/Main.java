@@ -3,14 +3,13 @@ package edu.utn;
 import edu.utn.classes.Espartano;
 import edu.utn.classes.Humano;
 import edu.utn.classes.Vikingo;
+import edu.utn.dataaccess.DataAccess;
 import edu.utn.impl.BeberEspartanoImpl;
 import edu.utn.impl.BeberVikingoImpl;
 import edu.utn.impl.OrinarEspartanoImpl;
 import edu.utn.impl.OrinarVikingoImpl;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -22,6 +21,8 @@ public class Main {
 
         List<Vikingo> vikingosSorted = vikingos.stream().sorted(Comparator.comparing(Vikingo::getEdad)).collect(Collectors.toList());
         List<Espartano> espartanosSorted = espartanos.stream().sorted(Comparator.comparing(Espartano::getEdad)).collect(Collectors.toList());
+
+        DataAccess db = new DataAccess();
 
         System.out.println("Vikingos");
         vikingosSorted.forEach(v -> System.out.println(v.getNombre()));
@@ -35,8 +36,15 @@ public class Main {
 
         Humano ganador = getGanador(competidorVikingo, competidorEspartano);
 
-        System.out.println("El ganador de la competencia es..... "+ganador.getNombre().toUpperCase()+"!");
+        System.out.println("El ganador de la competencia es.....");
 
+        System.out.println(ganador.getNombre().toUpperCase()+"!");
+
+        try{
+            db.insertWinner(ganador.getNombre(), 10);
+        }catch (Exception ex){
+            System.out.println(ex.toString()    );
+        }
 
     }
 
